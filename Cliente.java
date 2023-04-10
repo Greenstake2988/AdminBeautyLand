@@ -1,11 +1,15 @@
+import java.util.ArrayList;
 
 public class Cliente {
     private int id;
     private String nombre;
     private Double deuda;
     private Compra[] compras;
-    private Abono[] abonos;
+    private ArrayList<Movimiento> abonos;
     
+    public Cliente(){
+        this.setDeuda(null);
+    }
     public int getId() {
         return id;
     }
@@ -19,27 +23,31 @@ public class Cliente {
         this.nombre = nombre;
     }
     public Double getDeuda() {
-        return deuda;
+        if (!(this.abonos == null)) {
+            Double sumaAbonos = 0.0;
+            for (Movimiento abono : abonos) {
+                sumaAbonos =+ abono.getMonto();
+            }
+            return this.deuda - sumaAbonos;
+        }
+        return this.deuda;
+        
     }
     public void setDeuda(Double deuda) {
         this.deuda = deuda != null ? deuda : 0.0;
     }
-    public void setDeuda() {
-        this.setDeuda(null);
-    }
+  
     public Compra[] getCompras() {
         return compras;
     }
     public void setCompras(Compra[] compras) {
         this.compras = compras;
     }
-    public Abono[] getAbonos() {
+    public ArrayList<Movimiento> getAbonos() {
         return abonos;
     }
-    public void setAbonos(Abono[] abonos) {
+    public void setAbonos(ArrayList<Movimiento> abonos) {
         this.abonos = abonos;
     }
-
-
 
 }
